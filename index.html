@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: black;
+        }
+        #container{
+            height: 200px;
+            width: 300px;
+            background-color: aqua;
+            text-align: center;
+            padding: 30px 30px;
+            margin: auto;
+            margin-top: 200px;
+            font-size: 50px;
+        }
+        button{
+            height: 50px;
+            width: 80px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body><div id="container">
+    <div id="displayTimer">
+        00:00:00
+    </div>
+
+    <button id="start">Start</button>
+    <button id="stop">Pause</button>
+    <button id="reset">Reset</button>
+</div>
+    
+</body>
+<script>
+    let [second , minute , hour] = [0, 0 , 0]
+    let displayTimer = document.querySelector("#displayTimer")
+    let int;
+
+    document.getElementById("start").addEventListener("click" , ()=>{
+              if(int !== null){
+              clearInterval(int);
+              }
+
+              int = setInterval(showData , 100)
+    })
+
+
+
+    document.getElementById("stop").addEventListener("click" , ()=>{
+           clearInterval(int)
+    })
+
+    document.getElementById("reset").addEventListener( "click" ,  ()=>{
+          clearInterval(int)
+
+          displayTimer.innerHTML = "00 : 00 : 00"
+    })
+
+    function showData(){
+        second += 10
+        if(second === 60){
+            second = 0;
+            minute++
+            if(minute == 60){
+                minute = 0;
+                hour++;
+            }
+        }
+
+        let h = hour < 10? "0" + hour : hour
+        let m =minute < 10? "0" + minute : minute
+        let s = second < 10? "0" + second : second
+
+        displayTimer.innerHTML = `${h} : ${m} : ${s}`
+    }
+
+    
+</script>
+</html>
